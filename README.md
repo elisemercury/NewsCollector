@@ -61,7 +61,8 @@ The output newsletter will be saved as a file in the working directory under the
 You can customize the NewsCollector algorithm with the following optional parameters:
 
 ```Python
-newsletter = NewsCollector(sources, news_name="Daily News", news_date="2023-01-22", template='newsletter.html', output_filename='default')
+newsletter = NewsCollector(sources, news_name="Daily News", news_date="2023-01-22", 
+                           template='newsletter.html', output_filename='default')
 ```
 
 | Parameter | Type | Default Value | Other Values |
