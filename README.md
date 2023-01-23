@@ -21,7 +21,7 @@ View a full sample newsletter in PDF format [here](https://github.com/elisemercu
 It scrapes the source links provided and compares the articles it found on their similarity. If it finds multiple articles from different sources covering similar topics, these will be considered as being relevant articles and inlcude them in the output newsletter.
 
 <p align="center">
-  <img src="misc/collected_news.png" width="400" title="Example Output: Rendered Newsletter from Python News Collector">
+  <img src="misc/collected_news.png" width="300" title="Example Output: Rendered Newsletter from Python News Collector">
 </p>
 
 :newspaper: Read more about how the algorithm of the News Collector works in [my Medium article](TBD).
