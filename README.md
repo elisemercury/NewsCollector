@@ -16,6 +16,8 @@ The Python NewsCollector let's you define a variety of news sources from which i
   <img src="misc/newsletter_rendered.png" width="700" title="Example Output: Rendered Newsletter from Python News Collector">
 </p>
 
+View a full sample newsletter in PDF format [here](https://github.com/elisemercury/news-collector/blob/main/sample_newsletter.pdf).
+
 It scrapes the source links provided and compares the articles it found on their similarity. If it finds multiple articles from different sources covering similar topics, these will be considered as being relevant articles and inlcude them in the output newsletter.
 
 <p align="center">
@@ -37,7 +39,7 @@ newsletter.create()
 
 This will run the full NewsCollector pipeline by scraping the sources from the `sources.json` file and outputting the HTML newsletter. The `sources` parameter is required and has to be provided as Python `string`.
 
-The `sources.json` file must contain a JSON formattede collection of RSS links to various online news providers. The more news sources provided, the better NewsCollector will be able to caputre relevant articles. You can view the sample `sources.json` file [here](TBD).
+The `sources.json` file must contain a JSON formattede collection of RSS links to various online news providers. The more news sources provided, the better NewsCollector will be able to caputre relevant articles. You can view the sample `sources.json` file [here](https://github.com/elisemercury/news-collector/blob/main/sources.json).
 
 ## CLI Usage
 
@@ -77,7 +79,7 @@ The title you would like to give to the output newsletter. By default, the title
 
 The date for which the newsletter should be generated from. The articles will be scraped if their `publishedDate` corresponds to `news_date`. By default, NewsCollector will scrape the articles from today's date.
 
-### template
+### template (str)
 
 The template NewsCollector will use to generate the output HTML newsletter. You can use the default template `newsletter.html` or use your own custom template. The template used by NewsCollector must be located within the `\templates` folder of the working directory.
 
@@ -96,9 +98,9 @@ where:
 
 The templates used by NewsCollector must be located within the `\templates` folder of the working directory.
 
-For more details, I suggest looking into the default example template `newsletter.html` [here](TBD).
+For more details, I suggest looking into the default example template `newsletter.html` [here](https://github.com/elisemercury/news-collector/blob/main/templates/newsletter.html).
 
-### output_filename
+### output_filename (str)
 
 The filename of the output HTML newsletter. By default, NewsCollector will output an HTML file with the filename which will include the respective date: `newsletter_<news_date>.html`, where `<news_date>` is replaced by the value of the parameter. 
 
