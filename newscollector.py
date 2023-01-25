@@ -64,13 +64,9 @@ class NewsCollector:
 class Scraper:
 
     def __init__(self, sources, news_date=date.today()):
-
         self.news_date = news_date
         self.sources = sources
-
-        today, yesterday = Helper.validate_date(self.news_date)
-        self.today = today
-        self.yesterday = yesterday
+        self.today, self.yesterday = Helper.validate_date(self.news_date)
 
     def scrape(self):
         # Function that scrapes the content from the URLs in the source data
@@ -83,7 +79,7 @@ class Scraper:
                         article = {}
                         if hasattr(entry,'published'):
                             article_date = dateutil.parser.parse(getattr(entry,'published'))
-                            if (article_date.strftime('%Y-%m-%d') == str(self.news_date)): # or (article_date.strftime('%Y-%m-%d') == str(self.yesterday)):
+                            if (article_date.strftime('%Y-%m-%d') == str(self.news_date)):
                                 try:
                                     content = newspaper.Article(entry.link)
                                     content.download()
@@ -105,7 +101,6 @@ class Scraper:
                                         print(e)
                                         print('continuing...')
                                 except Exception as e: 
-                                    # in case the download fails, it prints the error and immediatly continues with downloading the next article
                                     print(e)
                                     print('continuing...')
             return articles_list
