@@ -28,9 +28,7 @@ class NewsCollector:
         self.news_name = news_name
 
         self.news_date, self.day_before = Helper.validate_date(news_date)
-
         self.template = Helper.validate_template(template)
-
         self.output_filename = Helper.validate_output_filename(output_filename, news_date)
 
     def create(self):
