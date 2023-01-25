@@ -24,7 +24,7 @@ class NewsCollector:
 
     def __init__(self, sources, news_name="Daily News Update", news_date=date.today(), template='newsletter.html', output_filename='default'):
 
-        self.sources = Helper.load_sources(sources)
+        self.sources = sources
         self.news_name = news_name
 
         self.news_date, self.day_before = Helper.validate_date(news_date)
@@ -48,25 +48,26 @@ class NewsCollector:
             news_df = Helper.clean_articles(news_df)
 
             tfidf_df = Processer.compute_tfidf(news_df)
-            clusters, articles_labeled = Processer.find_clusters(news_df, tfidf_df)
+            clusters = Processer.find_clusters(news_df, tfidf_df)
             featured_clusters = Processer.find_featured_clusters(clusters)
 
             Processer.build_html(featured_clusters, self.news_name, self.news_date, self.template, self.output_filename)
             print("NewsCollector completed successfully")
             return clusters, featured_clusters
         except:
-            if clusters:
-                print("Failed to build HTML. Saving clusters...")
-                return clusters, featured_clusters
-            else:
+            try:
+                if clusters:
+                    print("Failed to build HTML. Saving clusters...")
+                    return clusters, featured_clusters
+            except:
                 raise Exception(f'Error in "Newsletter.create()"')
 
 class Scraper:
 
     def __init__(self, sources, news_date=date.today()):
         self.news_date = news_date
-        self.sources = sources
-        self.today, self.yesterday = Helper.validate_date(self.news_date)
+        self.sources = Helper.load_sources(sources)
+        self.today, self.day_before = Helper.validate_date(self.news_date)
 
     def scrape(self):
         # Function that scrapes the content from the URLs in the source data
@@ -124,7 +125,6 @@ class Processer:
             cluster_count = {}
             for label in range(0, len(set(ac.labels_))):
                 cluster_count[label] = np.count_nonzero(articles_labeled == label)
-
             clusters = {}
             for n in range(0, len(cluster_count), 1):
                 indexes = np.argwhere(articles_labeled == max(cluster_count, key=cluster_count.get, default=None)).flatten('C').tolist()
@@ -135,8 +135,7 @@ class Processer:
                     for i in indexes:
                         clusters[n].append(df.iloc[i])
                     cluster_count.pop(max(cluster_count, key=cluster_count.get, default=None))
-
-            return clusters, articles_labeled
+            return clusters
         except:
              raise Exception(f'Error in "Processer.find_clusters()"')
 
