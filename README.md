@@ -43,7 +43,7 @@ This will run the full NewsCollector pipeline by scraping the sources from the `
 
 The `sources.json` file must contain a JSON formattede collection of RSS links to various online news providers. The more different news sources provided, the better NewsCollector will be able to caputre relevant articles. You can view the sample `sources.json` file [here](https://github.com/elisemercury/news-collector/blob/main/sources.json).
 
-:notebook: For a **detailed usage guide**, please refer to the official NewsCollector [Usage Documentatíon](TBD).
+:notebook: For a **detailed usage guide**, please refer to the official NewsCollector [Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
 ## CLI Usage
 
@@ -69,7 +69,7 @@ newsletter = NewsCollector(sources, news_name="Daily News", news_date="2023-01-2
                            template='newsletter.html', output_filename='default')
 ```
 
-:notebook: For a **detailed usage guide**, please refer to the official NewsCollector [Usage Documentatíon](TBD).
+:notebook: For a **detailed usage guide**, please refer to the official NewsCollector [Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
 -------
 
