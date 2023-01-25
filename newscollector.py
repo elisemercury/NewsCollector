@@ -23,10 +23,9 @@ warnings.filterwarnings("ignore")
 class NewsCollector:
 
     def __init__(self, sources, news_name="Daily News Update", news_date=date.today(), template='newsletter.html', output_filename='default'):
-
         self.sources = sources
         self.news_name = news_name
-
+        
         self.news_date, self.day_before = Helper.validate_date(news_date)
         self.template = Helper.validate_template(template)
         self.output_filename = Helper.validate_output_filename(output_filename, news_date)
