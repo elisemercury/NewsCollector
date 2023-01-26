@@ -1,8 +1,8 @@
 # Python NewsCollector :newspaper:
 
-As the internet has grown, the available **sources of information at our disposal have grown**. Nowadays, if you want to update yourself with the most important news of the day, you have a **vast variety of news sources** to choose from. Since we have that many news sources at our disposal, instead of manually going through all the news content…
+As the internet has grown, the available **sources of information at our disposal have increased**. Nowadays, if you want to update yourself with the most important news of the day, you have a **vast variety of news sources** to choose from. Since we have that many news sources at our disposal, instead of manually going through all their content…
 
-> Couldn't we let **automation** pick the top news stories from various newspapers for us, and nicely combine them into a single newsletter?
+> Couldn't we let **automation** pick the top news stories from various newspapers for us, and nicely combine them into a newsletter?
 
 **:fire: This is what the Python NewsCollector can do for us!**
 
