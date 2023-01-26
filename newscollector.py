@@ -50,7 +50,7 @@ class NewsCollector:
 
             Processer.build_html(featured_clusters, self.news_name, self.news_date, self.template, self.output_filename)
             print("NewsCollector completed successfully")
-            return clusters, featured_clusters, news_df
+            return clusters, featured_clusters
         except:
             try:
                 if clusters:
