@@ -32,7 +32,7 @@ class NewsCollector:
 
     def create(self):
         try:
-            scraper = Scraper(self.sources)
+            scraper = Scraper(self.sources, news_date=self.news_date)
             self.sources = scraper.scrape()
 
             news_df = Helper.write_dataframe(self.sources)
@@ -50,7 +50,7 @@ class NewsCollector:
 
             Processer.build_html(featured_clusters, self.news_name, self.news_date, self.template, self.output_filename)
             print("NewsCollector completed successfully")
-            return clusters, featured_clusters
+            return clusters, featured_clusters, news_df
         except:
             try:
                 if clusters:
@@ -61,7 +61,7 @@ class NewsCollector:
 
 class Scraper:
 
-    def __init__(self, sources, news_date=date.today()):
+    def __init__(self, sources, news_date):
         self.news_date = news_date
         self.sources = Helper.load_sources(sources)
         self.today, self.day_before = Helper.validate_date(self.news_date)
