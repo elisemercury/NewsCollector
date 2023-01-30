@@ -6,7 +6,9 @@ As the internet has grown, the available **sources of information at our disposa
 
 **:fire: This is what the Python NewsCollector can do for us!**
 
-> :newspaper: Read more about how the algorithm of NewsCollector works in [my Medium article](TBD).
+> :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
+
+> :closed_book: Read more about how the algorithm of NewsCollector works in [my Medium article](TBD).
 
 -------
 
@@ -28,7 +30,7 @@ The NewsCollector algorithm **scrapes** the source links provided and compares t
   <img src="misc/collected_news.png" width="350" title="Example Output: Rendered Newsletter from Python News Collector">
 </p>
 
-> :newspaper: Read more about how the algorithm of NewsCollector works in [my Medium article](TBD).
+> :closed_book: Read more about how the algorithm of NewsCollector works in [my Medium article](TBD).
 
 ## Basic Usage
 
