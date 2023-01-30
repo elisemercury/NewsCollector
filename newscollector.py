@@ -108,7 +108,7 @@ class Scraper:
 class Processer:
 
     def compute_tfidf(df):
-        # Function that computes the euclidean distances between the article titles
+        # Function that computes the TFIDF values for all words in the article bodies
         try:
             tfidf_df = TfidfVectorizer().fit_transform(df['clean_body']).todense()
             return tfidf_df
