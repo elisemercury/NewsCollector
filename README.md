@@ -1,32 +1,34 @@
 # Python NewsCollector :newspaper:
 
-As the internet has grown, the available **sources of information at our disposal have increased**. Nowadays, if you want to update yourself with the most important news of the day, you have a **vast variety of news sources** to choose from. Since we have that many news sources at our disposal, instead of manually going through all their content…
+As the internet has grown, the available **sources of information at our disposal have equally grown**. Nowadays, if you want to update yourself with the most important news of the day, you have a **vast variety of news sources** to choose from. Since we have that many news sources at our disposal, instead of manually going through all their content…
 
-> Couldn't we let **automation** pick the top news stories from various newspapers for us, and nicely combine them into a newsletter?
+**Couldn't we let **automation** pick the top news stories from various newspapers for us, and nicely combine them into a newsletter?**
 
 **:fire: This is what the Python NewsCollector can do for us!**
 
-:newspaper: Read more about how the algorithm of the News Collector works in [my Medium article](TBD).
+> :newspaper: Read more about how the algorithm of NewsCollector works in [my Medium article](TBD).
 
 -------
 
 ## Description
 
-The Python NewsCollector let's you define a variety of news sources from which it will pick the **most relevant articles** and bundle these in a **nice HTML-based newsletter**. 
+The Python NewsCollector lets you define a variety of news sources from which it will pick the **most relevant articles** and bundle these in a **nice HTML-based newsletter**. Below is an example of an auto-generated newsletter by NewsCollector on 23 January 2023:
 
 <p align="center"> 
-  <img src="misc/newsletter_rendered_23jan.png" width="700" title="Example Output: Rendered Newsletter from Python News Collector">
+  <img src="misc/newsletter_rendered_23jan.png" width="800" title="Example Output: Rendered Newsletter from Python News Collector">
 </p>
-
-View a full sample newsletter in PDF format [here](https://github.com/elisemercury/news-collector/blob/main/sample_newsletter.pdf).
-
-The NewsCollector algorithm scrapes the source links provided and compares the articles it found on their similarity. If it finds multiple articles from different sources covering similar topics, these will be considered as being relevant articles and inlcude them in the output newsletter.
 
 <p align="center">
-  <img src="misc/collected_news.png" width="300" title="Example Output: Rendered Newsletter from Python News Collector">
+View the full sample newsletter in PDF format <a href=https://github.com/elisemercury/news-collector/blob/main/sample_newsletter.pdf>here.
 </p>
 
-:newspaper: Read more about how the algorithm of the News Collector works in [my Medium article](TBD).
+The NewsCollector algorithm **scrapes** the source links provided and compares the articles it found based on their **similarity**. If it finds multiple articles from different sources covering similar topics, these will be considered as being **relevant articles** and will be included in the output newsletter.
+
+<p align="center">
+  <img src="misc/collected_news.png" width="350" title="Example Output: Rendered Newsletter from Python News Collector">
+</p>
+
+> :newspaper: Read more about how the algorithm of NewsCollector works in [my Medium article](TBD).
 
 ## Basic Usage
 
@@ -41,9 +43,9 @@ newsletter.create()
 
 This will run the full NewsCollector pipeline by scraping the sources from the `sources.json` file and outputting the HTML newsletter. The `sources` parameter is required and has to be provided as Python `string`.
 
-The `sources.json` file must contain a JSON formattede collection of RSS links to various online news providers. The more different news sources provided, the better NewsCollector will be able to caputre relevant articles. You can view the sample `sources.json` file [here](https://github.com/elisemercury/news-collector/blob/main/sources.json).
+The `sources.json` file must contain a JSON formatted collection of RSS links to various online news providers. The more different news sources provided, the better NewsCollector will be able to capture relevant articles. You can view the sample `sources.json` file [here](https://github.com/elisemercury/news-collector/blob/main/sources.json).
 
-:notebook: For a **detailed usage guide**, please refer to the official NewsCollector [Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
+> :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
 ## CLI Usage
 
@@ -56,20 +58,22 @@ newscollector.py [-h] -s SOURCES [-n [NEWS_NAME]] [-d [NEWS_DATE]]
 
 ## Output
 
-The NewsCollector will output an HTML newsletter with the most relevant articles it found while scraping the sources provided. 
+The NewsCollector will output an **HTML newsletter** with the most **relevant articles** it found while scraping the sources provided. 
 
-The output newsletter will be saved as a file in the working directory under the filename `newsletter_YYYY-MM-DD.html` where the date is the respective date the NewsCollector scraped its articles from. You can adjust the date as well as the output filename by setting the `news_date` and the `output_filename` variables.
+The output newsletter will be **saved as a file** in the working directory under the filename `newsletter_YYYY-MM-DD.html` where the date is the respective date the NewsCollector scraped its articles from. You can adjust the date as well as the output filename by setting the `news_date` and the `output_filename` parameters.
+
+View a full sample newsletter in PDF format [here](https://github.com/elisemercury/news-collector/blob/main/sample_newsletter.pdf).
 
 ## Additional Parameters
 
 You can customize the NewsCollector algorithm with the following optional parameters:
 
 ```Python
-newsletter = NewsCollector(sources, news_name="Daily News", news_date="2023-01-22", 
+newsletter = NewsCollector(sources, news_name="Daily News", news_date=date.today(), 
                            template='newsletter.html', output_filename='default')
 ```
 
-:notebook: For a **detailed usage guide**, please refer to the official NewsCollector [Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
+> :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
 -------
 
