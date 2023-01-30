@@ -310,8 +310,14 @@ class Helper:
         
     def clean_articles(df):
         # Function that cleans all the bodies of the articles
-        # Make all letters lower case
         try:
+            # Drop Duplicates
+            df = (df.drop_duplicates(subset=["title", "source"])).sort_index()
+            df = (df.drop_duplicates(subset=["body"])).sort_index()
+            df = (df.drop_duplicates(subset=["url"])).sort_index()
+            df = df.reset_index(drop=True)
+            
+            # Make all letters lower case
             df['clean_body'] = df['body'].str.lower()
 
             # Filter out the stopwords, puntuation and digits
@@ -336,11 +342,6 @@ class Helper:
             df['clean_body'] = df["clean_body"].apply(lambda x: [stemmer.stem(y) for y in x])
             df['clean_body'] = df["clean_body"].apply(lambda x: ' '.join([word for word in x]))
 
-            # Drop Duplicates
-            df = (df.drop_duplicates(subset=["title", "source"])).sort_index()
-            df = (df.drop_duplicates(subset=["body"])).sort_index()
-            df = (df.drop_duplicates(subset=["url"])).sort_index()
-            df = df.reset_index(drop=True)
             return df
         except:
             raise Exception(f'Error in "Helper.clean_articles()"')
