@@ -1,4 +1,4 @@
-# Python NewsCollector :newspaper:
+# :newspaper: Python NewsCollector
 
 As the internet has grown, the available **sources of information at our disposal have equally grown**. Nowadays, if you want to update yourself with the most important news of the day, you have a **vast variety of news sources** to choose from. Since we have that many news sources at our disposal, instead of manually going through all their content…
 
