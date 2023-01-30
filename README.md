@@ -15,7 +15,7 @@ As the internet has grown, the available **sources of information at our disposa
 The Python NewsCollector let's you define a variety of news sources from which it will pick the **most relevant articles** and bundle these in a **nice HTML-based newsletter**. 
 
 <p align="center"> 
-  <img src="misc/newsletter_rendered.png" width="700" title="Example Output: Rendered Newsletter from Python News Collector">
+  <img src="misc/newsletter_rendered_23jan.png" width="700" title="Example Output: Rendered Newsletter from Python News Collector">
 </p>
 
 View a full sample newsletter in PDF format [here](https://github.com/elisemercury/news-collector/blob/main/sample_newsletter.pdf).
