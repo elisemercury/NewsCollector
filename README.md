@@ -17,7 +17,7 @@ As the internet has grown, the available **sources of information at our disposa
 The Python NewsCollector lets you define a variety of news sources from which it will pick the **most relevant articles** and bundle these in a **nice HTML-based newsletter**. Below is an example of an auto-generated newsletter by NewsCollector on 23 January 2023:
 
 <p align="center"> 
-  <img src="misc/newsletter_rendered_23jan.png" width="800" title="Example Output: Rendered Newsletter from Python News Collector">
+  <img src="misc/newsletter_rendered_23Jan.png" width="800" title="Example Output: Rendered Newsletter from Python News Collector">
 </p>
 
 <p align="center">
