@@ -13,16 +13,16 @@ from unidecode import unidecode
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.cluster import AgglomerativeClustering
 import numpy as np
-import webbrowser
 import flask
 import warnings
 import random
 import argparse
+import os
 warnings.filterwarnings("ignore")
 
 class NewsCollector:
 
-    def __init__(self, sources, news_name="Daily News Update", news_date=date.today(), template='newsletter.html', output_filename='default'):
+    def __init__(self, sources="sources.json", news_name="Daily News Update", news_date=date.today(), template='newsletter.html', output_filename='default'):
         self.sources = sources
         self.news_name = news_name
         
@@ -32,14 +32,13 @@ class NewsCollector:
 
     def create(self):
         try:
+            start = datetime.now()
             scraper = Scraper(self.sources, news_date=self.news_date)
             self.sources = scraper.scrape()
 
             news_df = Helper.write_dataframe(self.sources)
-
-            for source in set(news_df["source"]):
-                print(f'{list(news_df["source"]).count(source)} articles downloaded from {source}\n', end="\r")
-            print(f'{len(news_df["source"])} total articles downloaded\n')
+            end = datetime.now()
+            Helper.print_scrape_result(news_df, start, end)
 
             news_df = Helper.clean_dataframe(news_df)
             news_df = Helper.clean_articles(news_df)
@@ -48,16 +47,13 @@ class NewsCollector:
             clusters = Processer.find_clusters(news_df, tfidf_df)
             featured_clusters = Processer.find_featured_clusters(clusters)
 
-            Processer.build_html(featured_clusters, self.news_name, self.news_date, self.template, self.output_filename)
-            print("NewsCollector completed successfully")
-            return clusters, featured_clusters
+            output_path = Processer.build_html(featured_clusters, self.news_name, self.news_date, self.template, self.output_filename)
+            
+            msg = f"NewsCollector completed successfully. View the output here: {output_path}"
+            print(msg)
+            return output_path
         except:
-            try:
-                if clusters:
-                    print("Failed to build HTML. Saving clusters...")
-                    return clusters, featured_clusters
-            except:
-                raise Exception(f'Error in "Newsletter.create()"')
+            raise Exception(f'Error in "Newsletter.create()"')
 
 class Scraper:
 
@@ -94,7 +90,7 @@ class Scraper:
                                         article['keywords'] = content.keywords
                                         article['image_url'] = content.top_image
                                         articles_list.append(article)
-                                        Helper.print_status(len(articles_list))
+                                        Helper.print_scrape_status(len(articles_list))
                                     except Exception as e:
                                         print(e)
                                         print('continuing...')
@@ -234,13 +230,12 @@ class Processer:
                                                 cluster05_1_url=f"{similar_articles[list(similar_articles)[5]]['url'][1]}",\
                                                 cluster05_2_url=f"{similar_articles[list(similar_articles)[5]]['url'][2]}",\
                                                 )
-            output = open(output_filename, 'w', encoding="utf-8")
-
+            output_path = os.path.join("rendered", output_filename)
+            output = open(output_path, 'w', encoding="utf-8")
             output.write(rendered)
             output.close()
 
-            webbrowser.open_new_tab(output_filename)
-            return True
+            return output_path
         except:
             raise Exception(f'Error in "Processer.build_html()"')
 
@@ -284,8 +279,15 @@ class Helper:
         except:
             raise Exception(f'Error in "Helper.validate_output_filename()"')
 
-    def print_status(count):
+    def print_scrape_status(count):
         print(f"Scraped {count} articles", end="\r")
+
+    def print_scrape_result(df, start, end):
+        time_delta = end - start
+        min, sec = divmod(time_delta.days * 86400 + time_delta.seconds, 60)
+        for source in set(df["source"]):
+            print(f'{list(df["source"]).count(source)} articles downloaded from {source}\n', end="\r")
+        print(f'{len(df["source"])} total articles downloaded in {min} min {sec} sec\n')        
 
     def write_dataframe(sources):
         # Function that writes the
@@ -380,7 +382,7 @@ class Helper:
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Automated News Article Collection with Python - https://github.com/elisemercury/Duplicate-Image-Finder')
-    parser.add_argument("-s", "--sources", type=str, help='Path of source JSON file with news sources to be scraped.', required=True)
+    parser.add_argument("-s", "--sources", type=str, help='Path of source JSON file with news sources to be scraped.', required=False, default="sources.json")
     parser.add_argument("-n", "--news_name", type=str, help='Title name of the newsletter.', required=False, default='Daily News Update')
     parser.add_argument("-d", "--news_date", type=str, help='Date of the newsletter.', required=False, default=date.today())
     parser.add_argument("-t", "--template", type=str, help='Filename of the template HTML newsletter file.', required=False, default='newsletter.html')
