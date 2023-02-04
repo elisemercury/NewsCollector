@@ -39,13 +39,11 @@ You can run the NewsCollector algorithm as follows:
 ```Python
 from newscollector import *
 
-newsletter = NewsCollector('sources.json')
+newsletter = NewsCollector()
 newsletter.create()
 ```
 
-This will run the full NewsCollector pipeline by scraping the sources from the `sources.json` file and outputting the HTML newsletter. The `sources` parameter is required and has to be provided as Python `string`.
-
-The `sources.json` file must contain a JSON formatted collection of RSS links to various online news providers. The more different news sources provided, the better NewsCollector will be able to capture relevant articles. You can view the sample `sources.json` file [here](https://github.com/elisemercury/news-collector/blob/main/sources.json).
+This will run the full NewsCollector pipeline by scraping the sources from the `sources.json` file and outputting the HTML newsletter.
 
 > :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
@@ -54,7 +52,7 @@ The `sources.json` file must contain a JSON formatted collection of RSS links to
 The NewsCollector can also be run directly via the CLI with the following parameters:
 
 ```python
-newscollector.py [-h] -s SOURCES [-n [NEWS_NAME]] [-d [NEWS_DATE]] 
+newscollector.py [-h] [-s SOURCES] [-n [NEWS_NAME]] [-d [NEWS_DATE]] 
                  [-t TEMPLATE] [-o OUTPUT_FILENAME]
 ```
 
@@ -71,7 +69,7 @@ View a full sample newsletter in PDF format [here](https://github.com/elisemercu
 You can customize the NewsCollector algorithm with the following optional parameters:
 
 ```Python
-newsletter = NewsCollector(sources, news_name="Daily News", news_date=date.today(), 
+newsletter = NewsCollector(sources="sources.json", news_name="Daily News Update", news_date=date.today(), 
                            template='newsletter.html', output_filename='default')
 ```
 
