@@ -1,6 +1,6 @@
 # :newspaper: Python NewsCollector
 
-As the internet has grown, the available **sources of information at our disposal have equally grown**. Nowadays, if you want to update yourself with the most important news of the day, you have a **vast variety of news sources** to choose from. Since we have that many news sources at our disposal, instead of manually going through all their content…
+As the internet has grown, the available **sources of information at our disposal have equally grown**. Nowadays, if you want to update yourself with the most important news of the day, you have a **vast variety of news sources** to choose from. Since we have that many news sources at our disposal, instead of manually going through all their content...
 
 **Couldn't we let **automation** pick the top news stories from various newspapers for us, and nicely combine them into a newsletter?**
 
@@ -21,7 +21,7 @@ The Python NewsCollector lets you define a variety of news sources from which it
 </p>
 
 <p align="center">
-View the full sample newsletter in PDF format <a href=https://github.com/elisemercury/NewsCollector/blob/main/sample_newsletter.pdf>here.
+View the full sample newsletter in PDF format <a href=https://github.com/elisemercury/NewsCollector/blob/main/sample_newsletter.pdf>here.</a>
 </p>
 
 The NewsCollector algorithm **scrapes** the source links provided and compares the articles it found based on their **similarity**. If it finds multiple articles from different sources covering similar topics, these will be considered as being **relevant articles** and will be included in the output newsletter.
@@ -73,7 +73,7 @@ newsletter = NewsCollector(sources="sources.json", news_name="Daily News Update"
                            template='newsletter.html', output_filename='default')
 ```
 
-> :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
+> :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentation](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
 -------
 
