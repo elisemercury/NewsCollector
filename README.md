@@ -21,7 +21,7 @@ The Python NewsCollector lets you define a variety of news sources from which it
 </p>
 
 <p align="center">
-View the full sample newsletter in PDF format <a href=https://github.com/elisemercury/News-Collector/blob/main/rendered/sample_newsletter.pdf>here.
+View the full sample newsletter in PDF format <a href=https://github.com/elisemercury/NewsCollector/blob/main/sample_newsletter.pdf>here.
 </p>
 
 The NewsCollector algorithm **scrapes** the source links provided and compares the articles it found based on their **similarity**. If it finds multiple articles from different sources covering similar topics, these will be considered as being **relevant articles** and will be included in the output newsletter.
@@ -62,7 +62,7 @@ The NewsCollector will output an **HTML newsletter** with the most **relevant ar
 
 The output newsletter will be **saved as a file** in the working directory under the filename `newsletter_YYYY-MM-DD.html` where the date is the respective date the NewsCollector scraped its articles from. You can adjust the date as well as the output filename by setting the `news_date` and the `output_filename` parameters.
 
-View a full sample newsletter in PDF format [here](https://github.com/elisemercury/News-Collector/blob/main/rendered/sample_newsletter.pdf).
+View a full sample newsletter in PDF format [here](https://github.com/elisemercury/NewsCollector/blob/main/sample_newsletter.pdf).
 
 ## Additional Parameters
 
