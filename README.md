@@ -6,7 +6,7 @@ As the internet has grown, the available **sources of information at our disposa
 
 **:fire: This is what the Python NewsCollector can do for us!**
 
-> :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
+> :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentation](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
 > :closed_book: Read more about how the algorithm of NewsCollector works in [my Medium article](https://medium.com/@eliselandman/automated-news-article-collection-with-python-9267968c9ea).
 
@@ -45,7 +45,7 @@ newsletter.create()
 
 This will run the full NewsCollector pipeline by scraping the sources from the `sources.json` file and outputting the HTML newsletter.
 
-> :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentatíon](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
+> :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentation](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
 ## CLI Usage
 
