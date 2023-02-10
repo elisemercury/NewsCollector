@@ -11,6 +11,10 @@ As the internet has grown, the available **sources of information at our disposa
 
 **:fire: This is what the Python NewsCollector can do for us!**
 
+```Python
+pip install py-newscollector
+```
+
 > :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentation](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
 > :closed_book: Read more about how the algorithm of NewsCollector works in [my Medium article](https://medium.com/@eliselandman/automated-news-article-collection-with-python-9267968c9ea).
