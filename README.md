@@ -43,7 +43,7 @@ newsletter = NewsCollector()
 output = newsletter.create()
 ```
 
-This will run the full NewsCollector pipeline by scraping the sources from the `sources.json` file and outputting an HTML newsletter.
+This will run the full NewsCollector pipeline by scraping the sources from the package default `sources.json` file and outputting an HTML newsletter.
 
 The `output` object will hold the location path of the generated newsletter, so that you can easily retrieve it programmatically:
 
@@ -68,11 +68,11 @@ newscollector.py [-h] [-s [SOURCES]] [-n [NEWS_NAME]] [-d [NEWS_DATE]]
 
 The NewsCollector will output an **HTML newsletter** with the most **relevant articles** it found while scraping the sources provided. 
 
-By default, the output newsletter will be **created as an HTML file** in the installation directory of your package, saved in the folder `rendered` under the filename `newsletter_YYYY-MM-DD.html`, where the date is the respective date the NewsCollector scraped its articles from. 
-
 <p align="center">
 View the full sample newsletter in PDF format <a href=https://github.com/elisemercury/NewsCollector/blob/main/sample_newsletter.pdf>here.</a>
 </p>
+
+By default, the output newsletter will be **created as an HTML file** in the installation directory of your package, saved in the folder `rendered` under the filename `newsletter_YYYY-MM-DD.html`, where the date is the respective date the NewsCollector scraped its articles from. 
 
 To adjust the default settings, please refer to [Additional Parameters](https://github.com/elisemercury/NewsCollector#additional-parameters).
 
