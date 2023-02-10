@@ -1,5 +1,10 @@
 # :newspaper: Python NewsCollector
 
+![PyPIv](https://img.shields.io/pypi/v/py-newscollector)
+![PyPI status](https://img.shields.io/pypi/status/py-newscollector)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/py-newscollector)
+![PyPI - License](https://img.shields.io/pypi/l/py-AutoClean)
+
 As the internet has grown, the available **sources of information at our disposal have equally grown**. Nowadays, if you want to update yourself with the most important news of the day, you have a **vast variety of news sources** to choose from. Since we have that many news sources at our disposal, instead of manually going through all their content...
 
 **Couldn't we let **automation** pick the top news stories from various newspapers for us, and nicely combine them into a newsletter?**
