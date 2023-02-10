@@ -81,8 +81,9 @@ To adjust the default settings, please refer to [Additional Parameters](https://
 You can customize the NewsCollector algorithm with the following optional parameters:
 
 ```Python
-newsletter = NewsCollector(sources="sources.json", news_name="Daily News Update", news_date=date.today(), 
-                           template='newsletter.html', output_filename='default', auto_open=False, 
+newsletter = NewsCollector(sources="sources.json", news_name="Daily News Update", 
+                           news_date=date.today(), template='newsletter.html', 
+                           output_filename='default', auto_open=False, 
                            return_details=False)
 ```
 
