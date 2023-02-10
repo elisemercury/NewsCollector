@@ -1,1 +1,1 @@
-from newscollector import *
+from newscollector.newscollector import *

@@ -1,4 +1,4 @@
-from pathlib import Path
+import pkg_resources
 import json
 import pandas as pd
 from datetime import *
@@ -17,18 +17,20 @@ import flask
 import warnings
 import random
 import argparse
+import webbrowser
 import os
 warnings.filterwarnings("ignore")
 
 class NewsCollector:
 
-    def __init__(self, sources="sources.json", news_name="Daily News Update", news_date=date.today(), template='newsletter.html', output_filename='default'):
-        self.sources = sources
-        self.news_name = news_name
-        
+    def __init__(self, sources="sources.json", news_name="Daily News Update", news_date=date.today(), template='newsletter.html', output_filename='default', auto_open=False, return_details=False):
+        self.sources = Helper.load_sources(sources)
+        self.news_name = news_name  
         self.news_date, self.day_before = Helper.validate_date(news_date)
-        self.template = Helper.validate_template(template)
+        self.template, self.template_path = Helper.validate_template(template)
         self.output_filename = Helper.validate_output_filename(output_filename, news_date)
+        self.return_details = Helper.validate_return_details(return_details)
+        self.auto_open = Helper.validate_auto_open(auto_open)
 
     def create(self):
         try:
@@ -47,20 +49,22 @@ class NewsCollector:
             clusters = Processer.find_clusters(news_df, tfidf_df)
             featured_clusters = Processer.find_featured_clusters(clusters)
 
-            output_path = Processer.build_html(featured_clusters, self.news_name, self.news_date, self.template, self.output_filename)
-            
-            msg = f"NewsCollector completed successfully. View the output here: {output_path}"
+            Processer.build_html(featured_clusters, self.news_name, self.news_date, self.template, self.output_filename, self.template_path)
+            msg = f"NewsCollector completed successfully. View the output here: {self.output_filename}"
             print(msg)
-            return output_path
+            if self.auto_open:
+                webbrowser.open(self.output_filename)
+            if self.return_details:
+                return self.output_filename, clusters, featured_clusters
+            return self.output_filename
         except:
             raise Exception(f'Error in "Newsletter.create()"')
 
 class Scraper:
 
     def __init__(self, sources, news_date):
+        self.sources = sources
         self.news_date = news_date
-        self.sources = Helper.load_sources(sources)
-        self.today, self.day_before = Helper.validate_date(self.news_date)
 
     def scrape(self):
         # Function that scrapes the content from the URLs in the source data
@@ -153,15 +157,15 @@ class Processer:
         except:
             raise Exception(f'Error in "Processer.find_featured_clusters()"')
 
-    def build_html(clusters_dict, news_name, news_date, template, output_filename):
+    def build_html(clusters_dict, news_name, news_date, template, output_filename, template_path):
         try:
-            newsletter = flask.Flask('newsletter')
+            newsletter = flask.Flask('newsletter', template_folder=template_path)
 
             Helper.shuffle_content(clusters_dict)
             similar_articles = Helper.prettify_similar(clusters_dict)
 
             with newsletter.app_context():
-                rendered = flask.render_template(template,\
+                rendered = flask.render_template(template, \
                                                 news_name=news_name,\
                                                 news_date=news_date,\
                                                 source00=clusters_dict[list(clusters_dict)[0]][0]['source'],\
@@ -230,12 +234,10 @@ class Processer:
                                                 cluster05_1_url=f"{similar_articles[list(similar_articles)[5]]['url'][1]}",\
                                                 cluster05_2_url=f"{similar_articles[list(similar_articles)[5]]['url'][2]}",\
                                                 )
-            output_path = os.path.join("rendered", output_filename)
-            output = open(output_path, 'w', encoding="utf-8")
+            output = open(output_filename, 'w', encoding="utf-8")
             output.write(rendered)
             output.close()
-
-            return output_path
+            return True
         except:
             raise Exception(f'Error in "Processer.build_html()"')
 
@@ -252,32 +254,61 @@ class Helper:
 
     def validate_template(template):
         try:
-            if not template == 'newsletter.html':
-                template_path = Path(f'templates\\{template}')
-                try:
-                    template_path.touch(exist_ok=True)
-                except:
-                    raise ValueError(f'Template "{template}" cannot be found in "templates\\" folder.')
-            return template
+            if os.path.exists(os.path.join('templates', template)):
+                template_path = 'templates'
+                print(f'INFO: Using custom "{template}" as template file.')
+                return template, template_path
+            else:
+                template = 'newsletter.html'
+                template_path = pkg_resources.resource_filename(__name__, 'templates')
+                print('INFO: Using package default "newsletter.html" as template file.')
+                return template, template_path
         except:
-            raise Exception(f'Error in "Helper.validate_template()"')       
+            raise Exception(f'Error in "Helper.validate_template()"') 
 
     def load_sources(file):
         # Function that loads in the sources from the JSON database
         try:
             with open(file) as data:
                 sources = json.load(data)
+            print(f'INFO: Using custom "{file}" as source file.')
             return sources
         except:
-            raise Exception(f'Error in "Helper.load_sources()"')
+            try:
+                default_file = pkg_resources.resource_filename(__name__, 'sources.json')
+                with open(default_file) as data:
+                    sources = json.load(data)
+                print('INFO: Using package default "sources.json" as source file.')
+                return sources
+            except:
+                raise Exception(f'Error in "Helper.load_sources()"')
 
     def validate_output_filename(file, news_date):
         try:
             if file == 'default':
-                file = f'newsletter_{news_date}.html'
-            return file
+                output_path = pkg_resources.resource_filename(__name__, 'rendered')
+                if not os.path.isdir(output_path):
+                    os.makedirs(output_path)
+                file = os.path.join(output_path, f'newsletter_{news_date}.html')
+                return file
+            else:
+                head_tail = os.path.split(file)
+                if head_tail[0] != '':
+                    if not os.path.exists(head_tail[0]):
+                        os.makedirs(head_tail[0])
+                return file
         except:
             raise Exception(f'Error in "Helper.validate_output_filename()"')
+        
+    def validate_return_details(return_details):
+        if not isinstance(return_details, bool):
+            raise Exception(f'Error in "validate_return_details": parameter "return_details" must be of type "bool".')
+        return return_details
+
+    def validate_auto_open(auto_open):
+        if not isinstance(auto_open, bool):
+            raise Exception(f'Error in "validate_auto_open": parameter "auto_open" must be of type "bool".')
+        return auto_open
 
     def print_scrape_status(count):
         print(f"Scraped {count} articles", end="\r")
@@ -387,6 +418,8 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--news_date", type=str, help='Date of the newsletter.', required=False, default=date.today())
     parser.add_argument("-t", "--template", type=str, help='Filename of the template HTML newsletter file.', required=False, default='newsletter.html')
     parser.add_argument("-o", "--output_filename", type=str, help='Filename of the output HTML newsletter file.', required=False, default='default')
+    parser.add_argument("-r", "--return_details", type=bool, help='Choose whether to return the collected cluster data.', required=False, default=False)   
+    parser.add_argument("-a", "--auto_open", type=bool, help='Choose whether to automatically open the newsletter in the browser.', required=False, default=False)   
     args = parser.parse_args()
 
     sources = args.sources
@@ -394,7 +427,9 @@ if __name__ == "__main__":
     news_date = args.news_date
     template = args.template
     output_filename = args.output_filename
+    return_details = args.return_details
+    auto_open = args.auto_open
 
-    newsletter = NewsCollector(sources, news_name, news_date, template, output_filename)
+    newsletter = NewsCollector(sources, news_name, news_date, template, output_filename, return_details, auto_open)
     newsletter.create()
     

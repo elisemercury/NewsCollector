@@ -40,10 +40,17 @@ You can run the NewsCollector algorithm as follows:
 from newscollector import *
 
 newsletter = NewsCollector()
-newsletter.create()
+output = newsletter.create()
 ```
 
 This will run the full NewsCollector pipeline by scraping the sources from the `sources.json` file and outputting the HTML newsletter.
+
+The `output` object will hold the location path of the generated newsletter, so that you can easily retrieve it programmatically:
+
+```Python
+output
+> 'C:\\Output\\Path\\newsletter.html'
+```
 
 > :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentation](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
 
@@ -52,15 +59,20 @@ This will run the full NewsCollector pipeline by scraping the sources from the `
 The NewsCollector can also be run directly via the CLI with the following parameters:
 
 ```python
-newscollector.py [-h] [-s SOURCES] [-n [NEWS_NAME]] [-d [NEWS_DATE]] 
-                 [-t TEMPLATE] [-o OUTPUT_FILENAME]
+newscollector.py [-h] [-s [SOURCES]] [-n [NEWS_NAME]] [-d [NEWS_DATE]] 
+                 [-t [TEMPLATE]] [-o [OUTPUT_FILENAME]] [-a [AUTO_OPEN]]
+                 [-r [RETURN_DETAILS]]
 ```
 
 ## Output
 
 The NewsCollector will output an **HTML newsletter** with the most **relevant articles** it found while scraping the sources provided. 
 
-The output newsletter will be **saved as a file** in the working directory under the filename `newsletter_YYYY-MM-DD.html` where the date is the respective date the NewsCollector scraped its articles from. You can adjust the date as well as the output filename by setting the `news_date` and the `output_filename` parameters.
+By default, the output newsletter will be **created as an HTML file** in the installation directory of your package, saved in the folder `rendered` under the filename `newsletter_YYYY-MM-DD.html`, where the date is the respective date the NewsCollector scraped its articles from. 
+
+To adjust the default settings, please refer to **Additionnal Parameters**.
+
+You can adjust the date as well as the output location and filename by customizing the `news_date` and the `output_filename` parameters. To define a custom output location, set the `output_filename` parameter to a path, for example `C:\\Output\\Path\\newsletter.html`.
 
 View a full sample newsletter in PDF format [here](https://github.com/elisemercury/NewsCollector/blob/main/sample_newsletter.pdf).
 
@@ -70,7 +82,8 @@ You can customize the NewsCollector algorithm with the following optional parame
 
 ```Python
 newsletter = NewsCollector(sources="sources.json", news_name="Daily News Update", news_date=date.today(), 
-                           template='newsletter.html', output_filename='default')
+                           template='newsletter.html', output_filename='default', auto_open=False, 
+                           return_details=False)
 ```
 
 > :bulb: For a **detailed usage guide**, please refer to the official [NewsCollector Usage Documentation](https://github.com/elisemercury/News-Collector/wiki/NewsCollector-Usage-Documentation).
